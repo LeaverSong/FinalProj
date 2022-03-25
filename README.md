@@ -15,10 +15,9 @@ First, we define the "water plant" have two states:
   
 
 - Non-Overload Node:
-
-$$
-N(u): \sum_{e(v', u)} f(e(u, v)) -  \sum_{e(u, v')} f(e(u, v)) \geq 0
-$$
+    $$
+    N(u): \sum_{e(v', u)} f(e(u, v)) -  \sum_{e(u, v')} f(e(u, v)) \geq 0
+    $$
 
 Source Node is always in Non-Overload State, and Target Node is always in Overload State.
 
