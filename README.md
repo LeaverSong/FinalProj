@@ -2,8 +2,6 @@
 
 ## BrainStorm
 
-
-
 Since the problem is equivalent to the following description:
 
 First, we define the "water plant" have two states:
