@@ -19,7 +19,7 @@ First, we define the "water plant" have two states:
 
 Source Node is always in Non-Overload State, and Target Node is always in Overload State.
 
-the maximum flow problem is equivalent to finding a sum of flow to target under the state that all Nodes are Non-Overload Nodes except the Target node.
+the maximum flow problem is equivalent to finding a sum of flow to target under the state that all Nodes are Non-Overload Nodes except the Target node.(It seems that this condition is a bit loose, and subsequent constraints need to be improved)
 
 
 
