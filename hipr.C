@@ -14,7 +14,7 @@ public:
             return flow;
         }
     }
-    int getOther(int id){
+    int getOtherId(int id){
         return u == id ? v : u;
     }
     void updateFlow(int id, int delta){
@@ -99,10 +99,9 @@ public:
     }
     void Push (Node *u, vector<Node *> &excess_nodes) {
         int idu = u->id;
-        #pragma omp parallel for
         for (auto edge : u->edges) {
 
-            int idv = edge->getOther(idu);
+            int idv = edge->getOtherId(idu);
             // cout << idv << ":" ;
             int available_flow = edge->getAvailableFlow(idu);
             if (available_flow > 0 && \
@@ -122,13 +121,13 @@ public:
         if (u->excess > 0) {
             int min_height = INT32_MAX;
             for (auto edge : u->edges) {
-                int idv = edge->getOther(u->id);
+                int idv = edge->getOtherId(u->id);
                 if (nodes[idv]->height < min_height && nodes[idv]->height >= u->height) {
                     min_height = nodes[idv]->height + 1;
                 }
             }
             u->height = min_height;
-            excess_nodes.push_back(u);
+            if (u->height < n) excess_nodes.push_back(u);
         }
     }
 ///<------------------------------- DEBUG -------------------------------->///
@@ -143,20 +142,24 @@ public:
         }
     }
 };
-int main() {
-    int n;
-    cin >> n;
-    Graph *graph = new Graph(n);
-    ifstream infile("./testcases/testcases.txt");
+int main(int argc, char *argv[]) {
+    int n, m;
+    ifstream infile(argv[1]);
+    infile >> n >> n >> m;
+    Graph *graph = new Graph(n + 1);
     int u, v, C;
     while (infile >> u >> v >> C) {
         graph->addEdge(u, v, C);
     }
-    // graph->print();
-    graph->PushRelabel(1, 510);
-    // graph->print();
-    cout << graph->nodes[510]->excess;
+    cout << "Load Finished\n";
 
+    cout << "Input s and t\n";
+    int s, t;
+    cin >> s >> t;
+    cout << "Calculating\n";
+    graph->PushRelabel(s, t);
+    cout << "Calculation Finished\n";
 
+    cout << graph->nodes[t]->excess;
     return 0; 
 }
